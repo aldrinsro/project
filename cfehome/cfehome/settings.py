@@ -31,7 +31,8 @@ SECRET_KEY = config("DJANGO_SECRET_KEY",cast=str,default=get_random_secret_key()
 DEBUG = config("DJANGO_DEBUG",cast=bool, default=False)
 
 ALLOWED_HOSTS = [
-    "railway.app"
+    "railway.app",
+    '*'
 ]
 
 if DEBUG: 
