@@ -35,6 +35,14 @@ ALLOWED_HOSTS = [
     '*'
 ]
 
+
+PROJECT_NAME = config("PROJECT_NAME",default="Unset Project Name",cast=str)
+
+
+
+
+
+
 if DEBUG: 
     ALLOWED_HOSTS = ["*"]
 
