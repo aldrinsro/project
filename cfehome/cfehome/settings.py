@@ -49,9 +49,9 @@ if DEBUG:
 
 
 
-CRSF_TRUSTED_ORIGINS =[
-    "https://railway.app"
-    'https://project-production-b905.up.railway.app/'
+CSRF_TRUSTED_ORIGINS = [
+    "https://railway.app",
+    "https://project-production-b905.up.railway.app",
 ]
 # Application definition
 
