@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'commando',
 ]
 
 MIDDLEWARE = [
@@ -97,21 +98,18 @@ WSGI_APPLICATION = 'cfehome.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 
-DATABASE_URL =config("DATABASE_URL",default="",cast=str)
-if DATABASE_URL :
-    import dj_database_url 
-    if DATABASE_URL.startswith('postgres//') or DATABASE_URL.startswith('posgresql://'):
-        DATABASES={
-        "default":dj_database_url.config(
-            default=DATABASE_URL,) }
-
+DATABASE_URL = config("DATABASE_URL", cast=str, default="")
+if DATABASE_URL:
+    import dj_database_url
+    if DATABASE_URL.startswith("postgres://") or DATABASE_URL.startswith(
+        "postgresql://"
+    ):
+        DATABASES = {
+            "default": dj_database_url.config(
+                default=DATABASE_URL,
+            )
+        }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
