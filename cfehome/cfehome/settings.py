@@ -61,7 +61,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+   
     'commando',
 ]
 
@@ -78,10 +78,10 @@ MIDDLEWARE = [
 
 
 if DEBUG : 
-    INSTALLED_APPS.append(
+    INSTALLED_APPS.extend([
     "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
-    )
+    ])
 
 ROOT_URLCONF = 'cfehome.urls'
 
