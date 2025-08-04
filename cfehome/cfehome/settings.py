@@ -61,14 +61,13 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-   
+    'django.contrib.staticfiles',
     'commando',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -78,10 +77,7 @@ MIDDLEWARE = [
 
 
 if DEBUG : 
-    INSTALLED_APPS.extend([
-    "whitenoise.runserver_nostatic",
-    "django.contrib.staticfiles",
-    ])
+    pass
 
 ROOT_URLCONF = 'cfehome.urls'
 
@@ -106,18 +102,28 @@ WSGI_APPLICATION = 'cfehome.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 DATABASE_URL = config("DATABASE_URL", cast=str, default="")
 if DATABASE_URL:
-    import dj_database_url
-    if DATABASE_URL.startswith("postgres://") or DATABASE_URL.startswith(
-        "postgresql://"
-    ):
-        DATABASES = {
-            "default": dj_database_url.config(
-                default=DATABASE_URL,
-            )
-        }
+    try:
+        import dj_database_url
+        if DATABASE_URL.startswith("postgres://") or DATABASE_URL.startswith(
+            "postgresql://"
+        ):
+            DATABASES = {
+                "default": dj_database_url.config(
+                    default=DATABASE_URL,
+                )
+            }
+    except ImportError:
+        # If dj-database-url is not installed, continue with SQLite
+        pass
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -158,7 +164,7 @@ STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / "static_root"
 STATIC_ROOT.mkdir(exist_ok = True , parents = True )
 
-STATICFILES_DIR = [
+STATICFILES_DIRS = [
     BASE_DIR/ "staticfiles"
 ]
 
@@ -166,11 +172,3 @@ STATICFILES_DIR = [
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-STORAGES = {
-    # ...
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
