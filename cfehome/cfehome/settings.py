@@ -56,6 +56,7 @@ DEBUG = config("DJANGO_DEBUG",cast=bool, default=False)
 ALLOWED_HOSTS = [
     "railway.app",
     '*'
+    'https://aldrinbruno.com/'
 ]
 
 
@@ -75,6 +76,7 @@ if DEBUG:
 CSRF_TRUSTED_ORIGINS = [
     "https://railway.app",
     "https://project-production-b905.up.railway.app",
+    'https://aldrinbruno.com/'
 ]
 # Application definition
 
