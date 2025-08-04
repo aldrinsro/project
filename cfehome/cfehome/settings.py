@@ -78,6 +78,11 @@ CSRF_TRUSTED_ORIGINS = [
     "https://project-production-b905.up.railway.app",
     'https://aldrinbruno.com/'
 ]
+
+
+CSRF_COOKIE_SECURE = not DEBUG 
+SESSION_COOKIE_SECURE = not DEBUG
+
 # Application definition
 
 INSTALLED_APPS = [
